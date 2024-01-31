@@ -29,7 +29,7 @@ const ReportTable = () => {
   );
 };
 
-const App = () => {
+const Page = () => {
   const queryClient = new QueryClient();
 
   return (
@@ -39,4 +39,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Page;
