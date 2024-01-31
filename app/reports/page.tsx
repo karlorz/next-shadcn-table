@@ -3,6 +3,7 @@ import React from 'react';
 import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
 import { DataTable } from '@/components/data-table';
 import { columns } from './columns';
+import Header from '@/components/Header';
 
 const getReports = async () => {
   const response = await fetch('http://127.0.0.1:8080/reports');
@@ -33,7 +34,9 @@ const Page = () => {
   const queryClient = new QueryClient();
 
   return (
+    
     <QueryClientProvider client={queryClient}>
+      <Header />
       <ReportTable />
     </QueryClientProvider>
   );
