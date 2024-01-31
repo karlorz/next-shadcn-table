@@ -1,8 +1,30 @@
-import React from 'react';
-import { Button } from '@/components/ui/button';
-import { MoreHorizontal } from 'lucide-react';
+'use client'
 
-export const columns = [
+import { ColumnDef } from '@tanstack/react-table'
+
+import { MoreHorizontal, ArrowUpDown } from 'lucide-react'
+
+import { Button } from '@/components/ui/button'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu'
+
+export type Report = {
+  system: string;
+  month: string;
+  reports: {
+    'FDDA1-01': string;
+    'FDDA1-04': string;
+    'FDDA1-05': string;
+  };
+};
+
+export const columns: ColumnDef<Report>[]= [
   {
     accessorKey: 'system',
     header: 'System',
@@ -11,16 +33,6 @@ export const columns = [
     accessorKey: 'month',
     header: 'Month',
   },
-  // {
-  //   accessorKey: 'reports',
-  //   header: 'Reports',
-  //   cell: (row: any) => (
-  //     <Button variant="link">
-  //       <MoreHorizontal size={16} />
-  //       View Reports
-  //     </Button>
-  //   ),
-  // },
   {
     accessorKey: 'reports.FDDA1-01',
     header: 'FDDA1-01',
