@@ -27,7 +27,17 @@ export type Report = {
 export const columns: ColumnDef<Report>[]= [
   {
     accessorKey: 'system',
-    header: 'System',
+    header: ({ column }) => {
+      return (
+        <Button
+          variant='ghost'
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          System
+          <ArrowUpDown className='ml-2 h-4 w-4' />
+        </Button>
+      )
+    }
   },
   {
     accessorKey: 'month',
@@ -45,4 +55,29 @@ export const columns: ColumnDef<Report>[]= [
     accessorKey: 'reports.FDDA1-05',
     header: 'FDDA1-05',
   },
+  {
+    id: 'actions',
+    cell: ({ row }) => {
+      const report = row.original
+
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant='ghost' className='h-8 w-8 p-0'>
+              <span className='sr-only'>Open menu</span>
+              <MoreHorizontal className='h-4 w-4' />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align='end'>
+            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuItem
+              onClick={() => navigator.clipboard.writeText(report.system)}
+            >
+              Copy system ID
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      )
+    }
+  }
 ];
