@@ -7,12 +7,17 @@ export default function Header() {
         <ul className='flex space-x-4'>
           <li>
             <Link href='/' legacyBehavior>
-              <a className='text-gray-800 hover:text-gray-600'>Home</a>
+              <a>Home</a>
             </Link>
           </li>
           <li>
             <Link href='/reports' legacyBehavior>
-              <a className='text-gray-800 hover:text-gray-600'>Reports</a>
+              <a>Reports</a>
+            </Link>
+          </li>
+          <li>
+            <Link href='/allpage' legacyBehavior>
+              <a>All</a>
             </Link>
           </li>
         </ul>

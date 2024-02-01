@@ -1,9 +1,9 @@
 export default function Home() {
   return (
     <>
-      <section className='py-24'>
+      <section className='py-0'>
         <div className='container'>
-          <h1 className='text-3xl font-bold'>Demo</h1>
+          <h1>Demo</h1>
         </div>
       </section>
     </>
