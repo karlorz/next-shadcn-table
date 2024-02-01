@@ -13,3 +13,8 @@ export async function getReports() {
   const reports = (await res.json()) as Report[];
   return reports;
 }
+
+export async function getReportBySystem(system: string) {
+  const res = await fetch(`http://127.0.0.1:8080/reports/${system}`);
+  return (await res.json()) as Report; 
+}
