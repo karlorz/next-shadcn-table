@@ -36,7 +36,6 @@ const Page = () => {
   return (
     
     <QueryClientProvider client={queryClient}>
-      <Header />
       <ReportTable />
     </QueryClientProvider>
   );
