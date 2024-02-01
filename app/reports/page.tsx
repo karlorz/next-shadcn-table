@@ -1,44 +1,19 @@
-'use client'
-import React from 'react';
-import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
-import { DataTable } from '@/components/data-table';
-import { columns } from './columns';
-import Header from '@/components/Header';
+import { dehydrate } from "@tanstack/query-core";
+import ListReports from "./list-reports";
+import { HydrationBoundary, QueryClient } from "@tanstack/react-query";
+import { getReports } from "@/utils/api-requests";
 
-const getReports = async () => {
-  const response = await fetch('http://127.0.0.1:8080/reports');
-  const data = await response.json();
-  return data;
-};
-
-const ReportTable = () => {
-  const { data, isLoading, isError } = useQuery('reports', getReports);
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (isError) {
-    return <div>Error fetching data</div>;
-  }
-
-  return (
-    <div>
-      <h1>Reports</h1>
-      <DataTable columns={columns} data={data} />
-    </div>
-  );
-};
-
-const Page = () => {
+export default async function Hydation() {
   const queryClient = new QueryClient();
 
-  return (
-    
-    <QueryClientProvider client={queryClient}>
-      <ReportTable />
-    </QueryClientProvider>
-  );
-};
+  await queryClient.prefetchQuery({
+    queryKey: ["reports"],
+    queryFn: getReports,
+  });
 
-export default Page;
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <ListReports />
+    </HydrationBoundary>
+  );
+}

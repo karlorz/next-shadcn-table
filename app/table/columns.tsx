@@ -14,7 +14,15 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 
-import { Report } from '@/utils/api-requests';
+export type Report = {
+  system: string;
+  month: string;
+  reports: {
+    'FDDA1-01': string;
+    'FDDA1-04': string;
+    'FDDA1-05': string;
+  };
+};
 
 export const columns: ColumnDef<Report>[]= [
   {

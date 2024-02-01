@@ -16,8 +16,8 @@ export default function Header() {
             </Link>
           </li>
           <li>
-            <Link href='/allpage' legacyBehavior>
-              <a>All</a>
+            <Link href='/table' legacyBehavior>
+              <a>Table</a>
             </Link>
           </li>
         </ul>
