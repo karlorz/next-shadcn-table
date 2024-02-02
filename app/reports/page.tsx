@@ -1,9 +1,8 @@
-import { dehydrate } from "@tanstack/query-core";
-import ListReports from "./list-reports";
-import { HydrationBoundary, QueryClient } from "@tanstack/react-query";
+import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import { getReports } from "@/utils/api-requests";
+import ListReports from "./list-reports";
 
-export default async function Hydation() {
+export default async function ReportsPage() {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({

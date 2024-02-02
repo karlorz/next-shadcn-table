@@ -10,7 +10,14 @@ export default function ReportDetails({
 }: {
   params: { system: string }
 }) {
-  const { data: report } = useQuery({
+  interface Report {
+    system: string
+    reports: {
+      [key: string]: string
+    }
+  }
+
+  const { data: report } = useQuery<Report>({
     queryKey: ['report', params.system],
     queryFn: () => getReportBySystem(params.system!),
     enabled: !!params.system
@@ -26,7 +33,7 @@ export default function ReportDetails({
 
   return (
     <div>
-      <Link href="/reports">Back to All Reports</Link>
+      <Link href='/reports'>Back to All Reports</Link>
       <h1>{report.system}</h1>
 
       <div>
