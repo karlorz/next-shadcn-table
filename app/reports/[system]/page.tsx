@@ -1,6 +1,7 @@
 // app/reports/[system]/page.tsx
 'use client'
 
+import Link from 'next/link'
 import { getReportBySystem } from '@/utils/api-requests'
 import { useQuery } from '@tanstack/react-query'
 
@@ -25,6 +26,7 @@ export default function ReportDetails({
 
   return (
     <div>
+      <Link href="/reports">Back to All Reports</Link>
       <h1>{report.system}</h1>
 
       <div>

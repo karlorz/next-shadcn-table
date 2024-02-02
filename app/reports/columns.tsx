@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { ColumnDef } from '@tanstack/react-table'
 
 import { MoreHorizontal, ArrowUpDown } from 'lucide-react'
@@ -14,9 +15,9 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 
-import { Report } from '@/utils/api-requests';
+import { Report } from '@/utils/api-requests'
 
-export const columns: ColumnDef<Report>[]= [
+export const columns: ColumnDef<Report>[] = [
   {
     accessorKey: 'system',
     header: ({ column }) => {
@@ -33,24 +34,25 @@ export const columns: ColumnDef<Report>[]= [
   },
   {
     accessorKey: 'month',
-    header: 'Month',
+    header: 'Month'
   },
   {
     accessorKey: 'reports.FDDA1-01',
-    header: 'FDDA1-01',
+    header: 'FDDA1-01'
   },
   {
     accessorKey: 'reports.FDDA1-04',
-    header: 'FDDA1-04',
+    header: 'FDDA1-04'
   },
   {
     accessorKey: 'reports.FDDA1-05',
-    header: 'FDDA1-05',
+    header: 'FDDA1-05'
   },
   {
     id: 'actions',
     cell: ({ row }) => {
       const report = row.original
+      const encodedSystem = encodeURIComponent(report.system)
 
       return (
         <DropdownMenu>
@@ -62,14 +64,12 @@ export const columns: ColumnDef<Report>[]= [
           </DropdownMenuTrigger>
           <DropdownMenuContent align='end'>
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(report.system)}
-            >
-              Copy system ID
-            </DropdownMenuItem>
+            <Link href={`/reports/${encodedSystem}`}>
+              <DropdownMenuItem>View Details</DropdownMenuItem>
+            </Link>
           </DropdownMenuContent>
         </DropdownMenu>
       )
     }
   }
-];
+]
