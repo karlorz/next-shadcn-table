@@ -1,21 +1,21 @@
 // app/reports/[system]/page.tsx
 'use client'
 
-import { useSearchParams } from 'next/navigation';
-import { getReportBySystem } from '@/utils/api-requests';
-import { useQuery } from '@tanstack/react-query';
+import { getReportBySystem } from '@/utils/api-requests'
+import { useQuery } from '@tanstack/react-query'
 
-export default function ReportDetails() {
-  const searchParams = useSearchParams()
-  const system = searchParams.get('system')
-
+export default function ReportDetails({
+  params
+}: {
+  params: { system: string }
+}) {
   const { data: report } = useQuery({
-    queryKey: ['report', system],
-    queryFn: () => getReportBySystem(system!),
-    enabled: !!system
+    queryKey: ['report', params.system],
+    queryFn: () => getReportBySystem(params.system!),
+    enabled: !!params.system
   })
 
-  if (!system) {
+  if (!params.system) {
     return <div>No system specified</div>
   }
 
@@ -27,24 +27,13 @@ export default function ReportDetails() {
     <div>
       <h1>{report.system}</h1>
 
-      <form>
-        <label>
-          FDDA1-01
-          <input type='text' value={report.reports['FDDA1-01']} />
-        </label>
-
-        <label>
-          FDDA1-04
-          <input type='text' value={report.reports['FDDA1-04']} />
-        </label>
-
-        <label>
-          FDDA1-05
-          <input type='text' value={report.reports['FDDA1-05']} />
-        </label>
-
-        <button type='submit'>Submit</button>
-      </form>
+      <div>
+        {Object.keys(report.reports).map(code => (
+          <p key={code}>
+            {code}: {report.reports[code]}
+          </p>
+        ))}
+      </div>
     </div>
   )
 }
