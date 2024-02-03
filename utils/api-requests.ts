@@ -1,12 +1,15 @@
 export type Report = {
   system: string;
   month: string;
-  reports: {
-    'FDDA1-01': string;
-    'FDDA1-04': string;
-    'FDDA1-05': string;
-  };
-};
+  reports: {[key: string]: number}; 
+}
+
+import systems from '@/constants/fdda_systemfull.json'
+
+export function getSystems() {
+  return systems.systems.map(system => system.name) 
+}
+
 
 export async function getReports() {
   const res = await fetch('http://127.0.0.1:8080/reports');

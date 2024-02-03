@@ -1,48 +1,32 @@
-// app/reports/[system]/page.tsx
-'use client'
-
 import Link from 'next/link'
-import { getReportBySystem } from '@/utils/api-requests'
-import { useQuery } from '@tanstack/react-query'
+import { getReportBySystem, getSystems, Report } from '@/utils/api-requests'
 
-export default function ReportDetails({
-  params
-}: {
-  params: { system: string }
-}) {
-  interface Report {
-    system: string
-    reports: {
-      [key: string]: string
-    }
+const systems = getSystems() 
+
+export async function generateStaticParams() {
+  return systems.map(system => ({
+    system 
+  }))
+} 
+
+interface PageReport extends Omit<Report, 'reports'> {
+  reports: {
+    [key: string]: number;
+    // other keys
   }
+}
 
-  const { data: report } = useQuery<Report>({
-    queryKey: ['report', params.system],
-    queryFn: () => getReportBySystem(params.system!),
-    enabled: !!params.system
-  })
+export default async function Page({ params }: { params: { system: string }}) {
 
-  if (!params.system) {
-    return <div>No system specified</div>
-  }
+  const report = (await getReportBySystem(params.system)) as PageReport;
 
-  if (!report) {
-    return <div>Report not found</div>
-  }
+  const reports = report.reports as PageReport['reports'];
 
   return (
-    <div>
-      <Link href='/reports'>Back to All Reports</Link>
-      <h1>{report.system}</h1>
-
-      <div>
-        {Object.keys(report.reports).map(code => (
-          <p key={code}>
-            {code}: {report.reports[code]}
-          </p>
-        ))}
-      </div>
-    </div>
+    <>
+      {Object.keys(reports).map(code => (
+        <p key={code}>{code}: {reports[code]}</p> 
+      ))}
+    </>
   )
 }
