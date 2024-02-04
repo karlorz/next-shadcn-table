@@ -1,5 +1,12 @@
-import Link from 'next/link'
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient
+} from '@tanstack/react-query'
+
 import { getReportBySystem, getSystems, Report } from '@/utils/api-requests'
+
+import ListReport from './list-report'
 
 const systems = getSystems()
 
@@ -17,18 +24,17 @@ interface PageReport extends Omit<Report, 'reports'> {
 }
 
 export default async function Page({ params }: { params: { system: string } }) {
-  const report = (await getReportBySystem(params.system)) as PageReport
-  const { system, month } = report;
-  const reports = report.reports as PageReport['reports']
+  const system = params.system
+  const queryClient = new QueryClient()
+
+  await queryClient.prefetchQuery({
+    queryKey: ['getReport', system],
+    queryFn: () => getReportBySystem(system)
+  })
 
   return (
-    <>
-      <h1>{system} / {month}</h1> 
-      {Object.keys(reports).map(code => (
-        <p key={code}>
-          {code}: {reports[code]}
-        </p>
-      ))}
-    </>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <ListReport system={system} />
+    </HydrationBoundary>
   )
 }
