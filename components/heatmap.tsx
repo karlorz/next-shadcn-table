@@ -1,9 +1,11 @@
+'use client'
+
 import React, { useEffect, useRef } from 'react';
 import { saveAs } from 'file-saver';
 import * as echarts from 'echarts';
 
 interface HeatmapProps {
-  options: echarts.EChartsOption;
+  options: echarts.EChartOption;
 }
 
 const Heatmap: React.FC<HeatmapProps> = ({ options }) => {
@@ -47,7 +49,7 @@ const Heatmap: React.FC<HeatmapProps> = ({ options }) => {
 
   return (
     <div>
-      <div ref={chartRef} style={{ width: '100%', height: '400px' }}></div>
+      <div ref={chartRef} style={{ height: '600px' }}></div>
       {/* <button onClick={handleDownload}>Download Report</button> */}
     </div>
   );
