@@ -2,9 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query'
 
-import { getReportBySystem, getSystems, Report } from '@/utils/api-requests'
-
-const systems = getSystems()
+import { getReportBySystem } from '@/utils/api-requests'
 
 interface ListReportProps {
   system: string
