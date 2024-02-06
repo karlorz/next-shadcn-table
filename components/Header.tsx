@@ -16,6 +16,11 @@ export default function Header() {
             </Link>
           </li>
           <li>
+            <Link href='/charta1' legacyBehavior>
+              <a>ChartA1</a>
+            </Link>
+          </li>
+          <li>
             <Link href='/table' legacyBehavior>
               <a>Table</a>
             </Link>
