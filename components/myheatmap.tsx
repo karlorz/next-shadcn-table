@@ -3,7 +3,9 @@
 import { useEffect, useRef } from "react";
 import * as echarts from "echarts";
 
-const mytheme = "vintage";
+import theme from "@/constants/shine.json";
+
+const mytheme = "shine";
 
 interface MyHeatmapProps {
   options: echarts.EChartOption;
@@ -20,6 +22,7 @@ function MyHeatmap({ options }: MyHeatmapProps) {
       if (renderedInstance) {
         chartInstance = renderedInstance;
       } else {
+        echarts.registerTheme(mytheme, theme);
         chartInstance = echarts.init(chartRef.current!, mytheme);
       }
 
