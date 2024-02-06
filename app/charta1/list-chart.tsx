@@ -2,7 +2,7 @@
 
 import { getReports, getSystems } from '@/utils/api-requests'
 import { useQuery } from '@tanstack/react-query'
-import Heatmap from '@/components/heatmap'
+import MyHeatmap from '@/components/myheatmap'
 import React from 'react'
 import { EChartOption } from 'echarts'
 
@@ -89,7 +89,7 @@ export default function ListChart() {
   return (
     <div>
       <h1>ChartA1</h1>
-      <Heatmap options={options} />
+      <MyHeatmap options={options} />
     </div>
   )
 }

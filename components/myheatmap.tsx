@@ -1,7 +1,9 @@
-'use client'
+"use client"
 
 import { useEffect, useRef } from "react";
 import * as echarts from "echarts";
+
+const mytheme = "vintage";
 
 interface MyHeatmapProps {
   options: echarts.EChartOption;
@@ -18,7 +20,7 @@ function MyHeatmap({ options }: MyHeatmapProps) {
       if (renderedInstance) {
         chartInstance = renderedInstance;
       } else {
-        chartInstance = echarts.init(chartRef.current!);
+        chartInstance = echarts.init(chartRef.current!, mytheme);
       }
 
       chartInstance.setOption(options);
