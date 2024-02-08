@@ -1,6 +1,5 @@
 'use client'
 
-import reports from '@/constants/fdda1_report.json';
 import Link from 'next/link'
 import { ColumnDef } from '@tanstack/react-table'
 
@@ -17,9 +16,6 @@ import {
 } from '@/components/ui/dropdown-menu'
 
 import { Report } from '@/utils/api-requests'
-
-// Get the list of columns from the reports data
-const columnKeys = reports.reports;
 
 export const columns: ColumnDef<Report>[] = [
   {
@@ -40,10 +36,18 @@ export const columns: ColumnDef<Report>[] = [
     accessorKey: 'month',
     header: 'Month'
   },
-  ...columnKeys.map((key: string) => ({
-    accessorKey: `reports.${key}`,
-    header: key
-  })),
+  {
+    accessorKey: 'reports.FDDA1-01',
+    header: 'FDDA1-01'
+  },
+  {
+    accessorKey: 'reports.FDDA1-04',
+    header: 'FDDA1-04'
+  },
+  {
+    accessorKey: 'reports.FDDA1-05',
+    header: 'FDDA1-05'
+  },
   {
     id: 'actions',
     cell: ({ row }) => {

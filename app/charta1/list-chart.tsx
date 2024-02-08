@@ -31,14 +31,14 @@ export default function ListChart() {
             system,
             month,
             code,
-            value: reports[code]
+            value: reports[code] === -1 ? "-" : reports[code] // Replace -1 with "-"
           }))
         })
         .flat()
     : []
 
   // Extract the unique systems and codes for the axes of the heatmap
-  const systems = Array.from(new Set(transformedData.map(item => item.system)))
+  const systems = Array.from(new Set(transformedData.map(item => item.system))).sort().reverse(); // Sort alphabetically
   const codes = Array.from(new Set(transformedData.map(item => item.code)))
 
   const options: EChartOption = {

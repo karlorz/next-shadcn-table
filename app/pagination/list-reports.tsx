@@ -2,7 +2,7 @@
 
 import { getReports } from '@/utils/api-requests'
 import { useQuery } from '@tanstack/react-query'
-import { DataTable } from './data-table'
+import { DataTable } from '@/components/data-table'
 import { columns } from './columns'
 import React from 'react'
 
