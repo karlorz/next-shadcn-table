@@ -4,7 +4,7 @@ export default function Home() {
     <>
       <section className='py-0'>
         <div className='container'>
-          <h1>Demo</h1>
+          <h1>Getting Started</h1>
           <Link href='/test'>
             Go to Test Page
           </Link>
