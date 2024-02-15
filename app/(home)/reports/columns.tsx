@@ -1,6 +1,8 @@
 'use client'
 
 import reports from '@/constants/fdda1_report.json';
+import reportsa2 from '@/constants/fdda2_report.json';
+import reportsa3 from '@/constants/fdda3_report.json';
 import Link from 'next/link'
 import { ColumnDef } from '@tanstack/react-table'
 
@@ -20,6 +22,10 @@ import { Report } from '@/utils/api-requests'
 
 // Get the list of columns from the reports data
 const columnKeys = reports.reports;
+
+// Append the list of reports from other files
+columnKeys.push(...reportsa2.reports);
+columnKeys.push(...reportsa3.reports);
 
 export const columns: ColumnDef<Report>[] = [
   {
