@@ -21,9 +21,10 @@ export default function Header() {
             <Link href='/tablea3'>TableA3</Link>
           </li>
           <li>
-            <Link href='/reports' legacyBehavior>
-              <a>Reports</a>
-            </Link>
+            <Link href='/reports'>Reports</Link>
+          </li>
+          <li>
+            <Link href='/heatmap'>(Heatmap)</Link>
           </li>
         </ul>
       </nav>

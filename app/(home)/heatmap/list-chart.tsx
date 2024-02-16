@@ -5,8 +5,7 @@ import { useQuery } from '@tanstack/react-query'
 import MyHeatmap from '@/components/myheatmap'
 import React from 'react'
 import { EChartOption } from 'echarts'
-import { columnstitles } from '@/constants/data'
-import reports from '@/constants/fdda1_report.json'
+import { columnstitles} from '@/constants/data'
 
 export default function ListChart() {
   // const systems = getSystems()
@@ -24,9 +23,6 @@ export default function ListChart() {
     return <div>Error fetching data</div>
   }
 
-  // Get the list of x axe from the reports data
-  const xaxeKeys = reports.reports
-
   // Transform the data into a heatmap-compatible format
   const transformedData = data
     ? data
@@ -36,27 +32,23 @@ export default function ListChart() {
             system,
             month,
             code,
-            value: reports[code] === -1 ? '-' : reports[code] // Replace -1 with "-"
+            value: reports[code] === -1 ? "-" : reports[code] // Replace -1 with "-"
           }))
         })
         .flat()
     : []
 
   // Extract the unique systems and codes for the axes of the heatmap
-  const systems = Array.from(new Set(transformedData.map(item => item.system)))
-    .sort()
-    .reverse() // Sort alphabetically
-  const codes = Array.from(
-    new Set(transformedData.map(item => item.code))
-  ).sort()
+  const systems = Array.from(new Set(transformedData.map(item => item.system))).sort().reverse(); // Sort alphabetically
+  const codes = Array.from(new Set(transformedData.map(item => item.code))).sort()
 
   const replacedCodes = codes.map(code => {
-    const titlelabel = columnstitles.find(label => label.value === code)
+    const titlelabel = columnstitles.find(label => label.value === code);
     if (titlelabel) {
-      return titlelabel.label
+      return titlelabel.label;
     }
-    return code
-  })
+    return code;
+  });
 
   const options: EChartOption = {
     tooltip: {
@@ -64,17 +56,17 @@ export default function ListChart() {
     },
     xAxis: {
       type: 'category' as const, // Specify the type as 'category'
-      data: xaxeKeys.filter(key => codes.includes(key)), // Filter the x-axis data based on codes array,
+      data: codes,
       splitArea: {
         show: true
       },
       axisLabel: {
         formatter: function (value: string) {
-          const titleLabel = columnstitles.find(label => label.value === value)
+          const titleLabel = columnstitles.find((label) => label.value === value);
           if (titleLabel) {
-            return titleLabel.label
+            return titleLabel.label;
           }
-          return value
+          return value;
         }
       }
     },
