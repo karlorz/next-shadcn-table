@@ -50,14 +50,6 @@ export default function ListChart() {
     new Set(transformedData.map(item => item.code))
   ).sort()
 
-  const replacedCodes = codes.map(code => {
-    const titlelabel = columnstitles.find(label => label.value === code)
-    if (titlelabel) {
-      return titlelabel.label
-    }
-    return code
-  })
-
   const options: EChartOption = {
     tooltip: {
       position: 'top'

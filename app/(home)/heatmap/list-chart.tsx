@@ -42,14 +42,6 @@ export default function ListChart() {
   const systems = Array.from(new Set(transformedData.map(item => item.system))).sort().reverse(); // Sort alphabetically
   const codes = Array.from(new Set(transformedData.map(item => item.code))).sort()
 
-  const replacedCodes = codes.map(code => {
-    const titlelabel = columnstitles.find(label => label.value === code);
-    if (titlelabel) {
-      return titlelabel.label;
-    }
-    return code;
-  });
-
   const options: EChartOption = {
     tooltip: {
       position: 'top'
