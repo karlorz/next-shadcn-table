@@ -8,6 +8,9 @@ interface ListReportProps {
   system: string
 }
 
+import { columnstitles} from '@/constants/data'
+import ReportDetail from '@/components/ReportDetail';
+
 export default function ListReport({ system }: ListReportProps) {
   const {
     data: report,
@@ -28,17 +31,19 @@ export default function ListReport({ system }: ListReportProps) {
   }
 
   return (
-    <div>
+    <div className="max-w-[300px]">
       {report && (
         <>
           <h1>
             {system} / {report.month}
           </h1>
-          {Object.keys(report.reports).map(code => (
-            <p key={code}>
-              {code}: {report.reports[code]}
-            </p>
-          ))}
+          <ReportDetail
+            columns={['Label', 'Value']}
+            data={Object.entries(report.reports).map(([key, value]) => [
+              columnstitles.find(label => label.value === key)?.label || key,
+              value
+            ])}
+          />
         </>
       )}
     </div>
