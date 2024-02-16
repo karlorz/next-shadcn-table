@@ -30,6 +30,12 @@ export default function ListReport({ system }: ListReportProps) {
     return <div>Error fetching data</div>
   }
 
+  const sortedData = report && columnstitles.map(({ value, label }) => {
+    const reportValue = report.reports[value];
+    const displayValue = reportValue !== undefined ? reportValue : label;
+    return [label, displayValue];
+  });
+
   return (
     <div className="max-w-[300px]">
       {report && (
@@ -39,13 +45,10 @@ export default function ListReport({ system }: ListReportProps) {
           </h1>
           <ReportDetail
             columns={['Label', 'Value']}
-            data={Object.entries(report.reports).map(([key, value]) => [
-              columnstitles.find(label => label.value === key)?.label || key,
-              value
-            ])}
+            data={sortedData || []}
           />
         </>
       )}
     </div>
-  )
+  );
 }
