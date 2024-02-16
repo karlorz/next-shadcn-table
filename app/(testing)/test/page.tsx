@@ -9,7 +9,7 @@ import reporta3 from '@/constants/fdda3_report.json';
 import { Button } from '@/components/ui/button';
 
 export default function Home() {
-  const handlePullReport = useCallback(async (report) => {
+  const handlePullReport = useCallback(async (report: { reports: string[]; }) => {
     try {
       const response = await pullReport(report);
       const data = await response.text();
