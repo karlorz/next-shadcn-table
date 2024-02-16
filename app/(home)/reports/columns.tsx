@@ -5,7 +5,7 @@ import reportsa2 from '@/constants/fdda2_report.json';
 import reportsa3 from '@/constants/fdda3_report.json';
 import Link from 'next/link'
 import { ColumnDef } from '@tanstack/react-table'
-
+import { columnstitles} from '@/constants/data'
 import { MoreHorizontal, ArrowUpDown } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
@@ -48,7 +48,15 @@ export const columns: ColumnDef<Report>[] = [
   },
   ...columnKeys.map((key: string) => ({
     accessorKey: `reports.${key}`,
-    header: key
+    // header: key
+    header: ({ }) => {
+      const titlelabel = columnstitles.find((label) => label.value === key);
+      if (!titlelabel) {
+        return null;
+      }
+      return titlelabel.label;
+    },
+
   })),
   {
     id: 'actions',
