@@ -52,7 +52,7 @@ export const columns: ColumnDef<Report>[] = [
     header: ({ }) => {
       const titlelabel = columnstitles.find((label) => label.value === key);
       if (!titlelabel) {
-        return null;
+        return key;
       }
       return titlelabel.label;
     },
