@@ -12,6 +12,12 @@ export default function Header() {
             <Link href='/charta1'>ChartA1</Link>
           </li>
           <li>
+            <Link href='/charta2'>ChartA2</Link>
+          </li>
+          <li>
+            <Link href='/charta3'>ChartA3</Link>
+          </li>
+          <li>
             <Link href='/tablea1'>TableA1</Link>
           </li>
           <li>
