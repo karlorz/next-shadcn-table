@@ -32,10 +32,11 @@ export default function ListReport({ system }: ListReportProps) {
 
   const sortedData = report && columnstitles.map(({ value, label }) => {
     const reportValue = report.reports[value];
-    const displayValue = reportValue !== undefined ? reportValue : label;
+    const displayValue = reportValue !== undefined ? reportValue : 'n/a'; // Replace undefined values with 'n/a'
     return [label, displayValue];
   });
-
+  
+  // console.log(sortedData);
   return (
     <div className="max-w-[300px]">
       {report && (
