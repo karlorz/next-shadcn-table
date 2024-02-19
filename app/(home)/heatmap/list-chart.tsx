@@ -46,8 +46,10 @@ export default function ListChart() {
     const { value, seriesName } = params;
     const xlabel = columnstitles.find((label) => label.value === params.value[0]);
     // const titleLabel = columnstitles.find((label) => label.value === seriesName);
-    const seriesLabel = xlabel ? xlabel.label : value[0];
-    return `${seriesLabel},${value[1]}: ${value[2]}`;
+    const xLabelout = xlabel ? xlabel.label : value[0];
+    const yLabelout = value[1];
+    const seriesValue = value[2]
+    return `${xLabelout},${yLabelout}: ${seriesValue}`;
   }
 
   const options: EChartOption = {

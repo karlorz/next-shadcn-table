@@ -32,6 +32,9 @@ export default function Header() {
           <li>
             <Link href='/heatmap'>(Heatmap)</Link>
           </li>
+          <li>
+            <Link href='/datahealth'>(DataHealth)</Link>
+          </li>
         </ul>
       </nav>
     </header>
