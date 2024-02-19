@@ -37,7 +37,7 @@ export default function ListChart() {
           return Object.keys(reports).map(code => {
             const ruleValue = (ruleTableFdda1[system] || {})[code]
             const value = reports[code] === -1 ? '-' : reports[code]
-            const health = ruleValue === 1 && value === '-' ? 0 : 1 // Check data health based on rule table
+            const health = ruleValue === 1 && value === '-' ? 1 : 0 // Check data health based on rule table
             return {
               system,
               month,
@@ -105,7 +105,7 @@ export default function ListChart() {
     visualMap: [
       {
         min: 0,
-        max: 100,
+        max: 1,
         calculable: true,
         orient: 'horizontal',
         left: 'center',
