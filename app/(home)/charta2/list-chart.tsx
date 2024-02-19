@@ -107,7 +107,7 @@ export default function ListChart() {
   return (
     <>
       <div>
-        <h1>ChartA1</h1>
+        <h1>ChartA2</h1>
         <MyHeatmap options={options} />
       </div>
     </>

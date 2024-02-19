@@ -42,9 +42,18 @@ export default function ListChart() {
   const systems = Array.from(new Set(transformedData.map(item => item.system))).sort().reverse(); // Sort alphabetically
   const codes = Array.from(new Set(transformedData.map(item => item.code))).sort()
 
+  const formatTooltip = (params: any) => {
+    const { value, seriesName } = params;
+    const xlabel = columnstitles.find((label) => label.value === params.value[0]);
+    // const titleLabel = columnstitles.find((label) => label.value === seriesName);
+    const seriesLabel = xlabel ? xlabel.label : value[0];
+    return `${seriesLabel},${value[1]}: ${value[2]}`;
+  }
+
   const options: EChartOption = {
     tooltip: {
-      position: 'top'
+      position: 'top',
+      formatter: formatTooltip // Use the formatTooltip function to format the tooltip
     },
     xAxis: {
       type: 'category' as const, // Specify the type as 'category'
@@ -85,6 +94,7 @@ export default function ListChart() {
         data: transformedData.map(item => [item.code, item.system, item.value]),
         label: {
           show: true
+          
         },
         emphasis: {
           itemStyle: {
@@ -99,7 +109,7 @@ export default function ListChart() {
   return (
     <>
       <div>
-        <h1>ChartA1</h1>
+        <h1>Heatmap demo</h1>
         <MyHeatmap options={options} />
       </div>
     </>
