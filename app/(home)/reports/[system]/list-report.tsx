@@ -30,26 +30,33 @@ export default function ListReport({ system }: ListReportProps) {
     return <div>Error fetching data</div>
   }
 
-  const sortedData = report && columnstitles.map(({ value, label }) => {
-    const reportValue = report.reports[value];
-    const displayValue = reportValue !== undefined ? reportValue : 'n/a'; // Replace undefined values with 'n/a'
-    return [label, displayValue];
-  });
-  
-  // console.log(sortedData);
+  const showUndefined = false // Set this flag to control whether to show "n/a" values or not
+
+  const sortedData =
+    report &&
+    (columnstitles
+      .map(({ value, label }) => {
+        const reportValue = report.reports[value]
+        const displayValue = reportValue !== undefined ? reportValue : 'n/a' // Replace undefined values with 'n/a'
+
+        if (!showUndefined && displayValue === 'n/a') {
+          return null // Skip the item if showUndefined is false and the value is 'n/a'
+        }
+
+        return [label, displayValue]
+      })
+      .filter(Boolean) as (string | number)[][])
+
   return (
-    <div className="max-w-[300px]">
+    <div className='max-w-[300px]'>
       {report && (
         <>
           <h1>
             {system} / {report.month}
           </h1>
-          <ReportDetail
-            columns={['Label', 'Value']}
-            data={sortedData || []}
-          />
+          <ReportDetail columns={['Label', 'Value']} data={sortedData || []} />
         </>
       )}
     </div>
-  );
+  )
 }
