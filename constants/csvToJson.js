@@ -1,7 +1,7 @@
 const fs = require('fs');
 
-const inputFile = 'ruleTable_fdda1.csv';
-const outputFile = 'ruleTable_fdda1.json';
+const inputFile = 'ruleTable_fdda3.csv';
+const outputFile = 'ruleTable_fdda3.json';
 
 function convertToJSON(csvData) {
     const lines = csvData.trim().split('\n');
