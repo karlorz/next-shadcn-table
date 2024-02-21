@@ -2,9 +2,10 @@
 
 import { getReports, getSystems } from '@/utils/api-requests'
 import { useQuery } from '@tanstack/react-query'
-import Heatmap from '@/components/heatmap'
+import MyHeatmap from '@/components/myheatmap'
 import React from 'react'
 import { EChartOption } from 'echarts'
+import { columnstitles} from '@/constants/data'
 
 export default function ListChart() {
   // const systems = getSystems()
@@ -31,25 +32,45 @@ export default function ListChart() {
             system,
             month,
             code,
-            value: reports[code]
+            value: reports[code] === -1 ? "-" : reports[code] // Replace -1 with "-"
           }))
         })
         .flat()
     : []
 
   // Extract the unique systems and codes for the axes of the heatmap
-  const systems = Array.from(new Set(transformedData.map(item => item.system)))
-  const codes = Array.from(new Set(transformedData.map(item => item.code)))
+  const systems = Array.from(new Set(transformedData.map(item => item.system))).sort().reverse(); // Sort alphabetically
+  const codes = Array.from(new Set(transformedData.map(item => item.code))).sort()
+
+  const formatTooltip = (params: any) => {
+    const { value, seriesName } = params;
+    const xlabel = columnstitles.find((label) => label.value === params.value[0]);
+    // const titleLabel = columnstitles.find((label) => label.value === seriesName);
+    const xLabelout = xlabel ? xlabel.label : value[0];
+    const yLabelout = value[1];
+    const seriesValue = value[2]
+    return `${xLabelout},${yLabelout}: ${seriesValue}`;
+  }
 
   const options: EChartOption = {
     tooltip: {
-      position: 'top'
+      position: 'top',
+      formatter: formatTooltip // Use the formatTooltip function to format the tooltip
     },
     xAxis: {
       type: 'category' as const, // Specify the type as 'category'
       data: codes,
       splitArea: {
         show: true
+      },
+      axisLabel: {
+        formatter: function (value: string) {
+          const titleLabel = columnstitles.find((label) => label.value === value);
+          if (titleLabel) {
+            return titleLabel.label;
+          }
+          return value;
+        }
       }
     },
     yAxis: {
@@ -75,6 +96,7 @@ export default function ListChart() {
         data: transformedData.map(item => [item.code, item.system, item.value]),
         label: {
           show: true
+          
         },
         emphasis: {
           itemStyle: {
@@ -87,9 +109,11 @@ export default function ListChart() {
   }
 
   return (
-    <div>
-      <h1>ChartA1</h1>
-      <Heatmap options={options} />
-    </div>
+    <>
+      <div>
+        <h1>Heatmap demo</h1>
+        <MyHeatmap options={options} />
+      </div>
+    </>
   )
 }

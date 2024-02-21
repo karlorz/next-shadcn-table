@@ -1,5 +1,11 @@
+"use client"
+
 import { useEffect, useRef } from "react";
 import * as echarts from "echarts";
+
+import themeobj from "@/constants/customed.json";
+
+const mytheme = "customed";
 
 interface MyHeatmapProps {
   options: echarts.EChartOption;
@@ -16,7 +22,8 @@ function MyHeatmap({ options }: MyHeatmapProps) {
       if (renderedInstance) {
         chartInstance = renderedInstance;
       } else {
-        chartInstance = echarts.init(chartRef.current!);
+        echarts.registerTheme(mytheme, themeobj);
+        chartInstance = echarts.init(chartRef.current!, mytheme);
       }
 
       chartInstance.setOption(options);
