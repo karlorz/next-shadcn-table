@@ -36,6 +36,7 @@ export default function ListChart() {
 
   // Get the list of x axe from the reports data
   const xaxeKeys = reports.reports
+  const labelunderdefined = '-'
 
   const transformedData: any[] = data
   ? data
@@ -44,7 +45,7 @@ export default function ListChart() {
         return Object.keys(reports).map((code: string) => {
           const ruleValue = (ruleTableData[system] || {})[code];
           const value = reports[code] === -1 ? '-' : reports[code];
-          const health = ruleValue === 1 && value === '-' ? 1 : 0; // Check data health based on rule table
+          const health = ruleValue === 1 && value === '-' ? 1 : 'labelunderdefined'; // Check data health based on rule table
           return {
             system,
             month,
@@ -144,7 +145,7 @@ export default function ListChart() {
   return (
     <>
       <div>
-        <h1>FDDA1 data health</h1>
+        <h1>FDDA3 data health</h1>
         <MyHeatmap options={options} />
       </div>
     </>
