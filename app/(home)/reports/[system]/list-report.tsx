@@ -39,8 +39,8 @@ export default function ListReport({ system }: ListReportProps) {
         const reportValue = report.reports[value]
         const displayValue = reportValue !== undefined ? reportValue : 'n/a' // Replace undefined values with 'n/a'
 
-        if (!showUndefined && displayValue === 'n/a') {
-          return null // Skip the item if showUndefined is false and the value is 'n/a'
+        if (!showUndefined && (displayValue === 'n/a' || displayValue === -1)) {
+          return null; // Skip the item if showUndefined is false and the value is 'n/a' or -1
         }
 
         return [label, displayValue]
