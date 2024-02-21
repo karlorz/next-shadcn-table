@@ -1,6 +1,8 @@
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import { getReports } from "@/utils/api-requests";
-import ListChart from "./list-chart";
+import ListCharta1 from "./list-charta1";
+import ListCharta2 from "./list-charta2";
+import ListCharta3 from "./list-charta3";
 
 export default async function ReportsPage() {
   const queryClient = new QueryClient();
@@ -12,7 +14,9 @@ export default async function ReportsPage() {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <ListChart />
+      <ListCharta1 />
+      <ListCharta2 />
+      <ListCharta3 />
     </HydrationBoundary>
   );
 }

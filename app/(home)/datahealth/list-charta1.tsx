@@ -6,9 +6,17 @@ import MyHeatmap from '@/components/myheatmap'
 import React from 'react'
 import { EChartOption } from 'echarts'
 import { columnstitles } from '@/constants/data'
-import ruleTableFdda1 from '@/constants/ruleTable_fdda1.json'
+import ruleTablefdda1 from '@/constants/ruleTable_fdda1.json'
 
 import reports from '@/constants/fdda1_report.json'
+
+interface RuleTable {
+  [key: string]: {
+    [key: string]: number;
+  };
+}
+
+const ruleTableData: RuleTable = ruleTablefdda1 as RuleTable;
 
 export default function ListChart() {
   // const systems = getSystems()
@@ -29,26 +37,25 @@ export default function ListChart() {
   // Get the list of x axe from the reports data
   const xaxeKeys = reports.reports
 
-  // Transform the data into a heatmap-compatible format
-  const transformedData = data
-    ? data
-        .map(item => {
-          const { system, month, reports } = item
-          return Object.keys(reports).map(code => {
-            const ruleValue = (ruleTableFdda1[system] || {})[code]
-            const value = reports[code] === -1 ? '-' : reports[code]
-            const health = ruleValue === 1 && value === '-' ? 1 : 0 // Check data health based on rule table
-            return {
-              system,
-              month,
-              code,
-              value,
-              health
-            }
-          })
-        })
-        .flat()
-    : []
+  const transformedData: any[] = data
+  ? data
+      .map((item: any) => {
+        const { system, month, reports } = item;
+        return Object.keys(reports).map((code: string) => {
+          const ruleValue = (ruleTableData[system] || {})[code];
+          const value = reports[code] === -1 ? '-' : reports[code];
+          const health = ruleValue === 1 && value === '-' ? 1 : 0; // Check data health based on rule table
+          return {
+            system,
+            month,
+            code,
+            value,
+            health,
+          };
+        });
+      })
+      .flat()
+  : [];
 
   // Extract the unique systems and codes for the axes of the heatmap
   const systems = Array.from(new Set(transformedData.map(item => item.system)))
@@ -137,7 +144,7 @@ export default function ListChart() {
   return (
     <>
       <div>
-        <h1>Heatmap demo</h1>
+        <h1>FDDA1 data health</h1>
         <MyHeatmap options={options} />
       </div>
     </>
