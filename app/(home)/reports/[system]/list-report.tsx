@@ -26,9 +26,9 @@ export default function ListReport({ system }: ListReportProps) {
     return <div>Loading...</div>
   }
 
-  if (isError) {
-    return <div>Error fetching data</div>
-  }
+  // if (isError) {
+  //   return <div>Error fetching data</div>
+  // }
 
   const showUndefined = false // Set this flag to control whether to show "n/a" values or not
 
