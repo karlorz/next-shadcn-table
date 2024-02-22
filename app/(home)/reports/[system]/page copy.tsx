@@ -23,6 +23,34 @@ export async function generateStaticParams() {
 //   }
 // }
 
+// This function can be named anything
+// async function getProjects() {
+//   const res = await fetch(`https://...`, { cache: 'no-store' })
+//   const projects = await res.json()
+//   const queryClient = new QueryClient()
+
+//   const 
+//   return dehydratedState: dehydrate(queryClient)
+// }
+// export async function getServerSideProps() {
+//   const queryClient = new QueryClient()
+
+//   const user = await queryClient.fetchQuery({
+//     queryKey: ['user', email],
+//     queryFn: getUserByEmail,
+//   })
+
+//   if (user?.userId) {
+//     await queryClient.prefetchQuery({
+//       queryKey: ['projects', userId],
+//       queryFn: getProjectsByUser,
+//     })
+//   }
+
+//   // For Remix:
+//   // return json({ dehydratedState: dehydrate(queryClient) })
+//   return { props: { dehydratedState: dehydrate(queryClient) } }
+// }
 export default async function Page({ params }: { params: { system: string } }) {
   // const system = params.system
   const {system} = params
