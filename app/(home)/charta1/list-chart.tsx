@@ -20,9 +20,9 @@ export default function ListChart() {
     return <div>Loading...</div>
   }
 
-  if (isError) {
-    return <div>Error fetching data</div>
-  }
+  // if (isError) {
+  //   return <div>Error fetching data</div>
+  // }
 
   // Get the list of x axe from the reports data
   const xaxeKeys = reports.reports

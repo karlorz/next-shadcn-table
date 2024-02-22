@@ -17,9 +17,9 @@ export default function ListReports() {
     return <div>Loading...</div>
   }
 
-  // if (isError) {
-  //   return <div>Error fetching data</div>
-  // }
+  if (isError) {
+    return <div>Error fetching data</div>
+  }
 
   return (
     <div>
