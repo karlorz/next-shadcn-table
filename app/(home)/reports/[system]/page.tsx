@@ -8,34 +8,54 @@ import { getReportBySystem, getSystems, Report } from '@/utils/api-requests'
 
 import ListReport from './list-report'
 
-const systems = getSystems()
-
 export async function generateStaticParams() {
+  const systems = getSystems()
   return systems.map(system => ({
     system
   }))
 }
 
-// interface PageReport extends Omit<Report, 'reports'> {
-//   reports: {
-//     [key: string]: number
-//     // other keys
-//   }
-// }
-
-export default async function Page({ params }: { params: { system: string } }) {
-  // const system = params.system
-  const {system} = params
+// Server-side props
+async function getReports() {
   const queryClient = new QueryClient()
-  const reportKey = 'getReport_'+system;
 
-  await queryClient.prefetchQuery({
-    queryKey: [reportKey, system],
-    queryFn: () => getReportBySystem(system)
-  })
+  // Prefetch systems data
+  // await queryClient.prefetchQuery({
+  //   queryKey: ['systems'],
+  //   queryFn: () => getSystems()
+  // })
 
+  // If system data is available, prefetch Report data
+  const systems = await getSystems()
+  if (systems) {
+    systems.forEach(async system => {
+      await queryClient.prefetchQuery({
+        queryKey: ['getReport'+system, system],
+        queryFn: () => getReportBySystem(system)
+      })
+    })
+  }
+  const dehydratedState = dehydrate(queryClient)
+
+  return dehydratedState
+}
+
+// Page component
+export default async function Page({ params }: { params: { system: string } }) {
+  const { system } = params
+  // const dehydratedState = await getReports()
+  const queryClient = new QueryClient()
+  // if (systems) {
+  //   systems.forEach(async system => {
+      await queryClient.prefetchQuery({
+        queryKey: ['getReport', system],
+        queryFn: () => getReportBySystem(system)
+      })
+  //   })
+  // }
+  const dehydratedState = dehydrate(queryClient)
   return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
+    <HydrationBoundary state={dehydratedState}>
       <ListReport system={system} />
     </HydrationBoundary>
   )
