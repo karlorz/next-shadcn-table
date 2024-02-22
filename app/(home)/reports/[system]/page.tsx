@@ -26,9 +26,10 @@ interface PageReport extends Omit<Report, 'reports'> {
 export default async function Page({ params }: { params: { system: string } }) {
   const system = params.system
   const queryClient = new QueryClient()
+  const reportKey = 'getReport_'+system;
 
   await queryClient.prefetchQuery({
-    queryKey: ['getReport', system],
+    queryKey: [reportKey, system],
     queryFn: () => getReportBySystem(system)
   })
 

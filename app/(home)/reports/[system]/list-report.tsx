@@ -12,12 +12,13 @@ import { columnstitles} from '@/constants/data'
 import ReportDetail from '@/components/ReportDetail';
 
 export default function ListReport({ system }: ListReportProps) {
+  const reportKey = 'getReport_'+system;
   const {
     data: report,
     isLoading,
     isError
   } = useQuery({
-    queryKey: ['getReport', system],
+    queryKey: [reportKey, system],
     queryFn: () => getReportBySystem(system),
     staleTime: 10 * 1000
   })
